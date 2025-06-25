@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "@/assets/logo.png"; 
-
+import logo from "../assets/logo.png"; // adjust path based on your folder structure
 
 export default function SplashScreen({ onDone }) {
   const [progress, setProgress] = useState(0);
