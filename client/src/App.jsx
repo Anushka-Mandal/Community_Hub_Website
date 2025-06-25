@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import SplashScreen from "./pages/SplashScreen";
 import Auth from "./pages/Auth";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import Layout from "./pages/Layout";
 import CommunityNotices from "./pages/Community";
 import Notice_Events from "./pages/Event.jsx";
