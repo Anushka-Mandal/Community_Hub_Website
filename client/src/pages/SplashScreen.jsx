@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import logo from "../assets/logo.png"; // adjust path based on your folder structure
+import { useEffect, useState } from "react"
 
 export default function SplashScreen({ onDone }) {
   const [progress, setProgress] = useState(0);
@@ -21,7 +20,7 @@ export default function SplashScreen({ onDone }) {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#0D1525] text-white px-6 transition-opacity duration-700">
-      <img src={logo} alt="App Logo" className="w-32 mb-8" />
+      <img src="/logo.png" alt="App Logo" className="w-32 mb-8" />
       <div className="w-full max-w-md h-3 bg-gray-700 rounded-full overflow-hidden">
         <div
           className="h-full bg-blue-500 transition-all duration-75"
