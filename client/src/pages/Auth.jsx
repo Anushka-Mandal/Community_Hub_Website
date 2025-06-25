@@ -20,8 +20,9 @@ export default function Auth() {
     e.preventDefault();
 
     const endpoint = isSignIn
-      ? "http://localhost:3001/signin"
-      : "http://localhost:3001/users";
+    ? `${import.meta.env.VITE_API_URL}/signin`
+    : `${import.meta.env.VITE_API_URL}/users`;
+
 
     const payload = {
       block: selectedBlock,

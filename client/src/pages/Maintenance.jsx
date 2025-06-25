@@ -8,7 +8,7 @@ export default function Maintenance() {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/maintenance");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/maintenance`);
       setRequests(res.data);
     } catch (err) {
       console.error("Error fetching maintenance requests:", err);
@@ -18,7 +18,7 @@ export default function Maintenance() {
   const handleSubmit = async () => {
     if (!issue) return alert("Issue description required.");
     try {
-      await axios.post("http://localhost:3001/api/maintenance", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/maintenance`, {
         issue,
         userId: user._id,
       });

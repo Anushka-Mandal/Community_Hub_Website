@@ -14,7 +14,7 @@ export default function CommunityNotices() {
 
   const fetchNotices = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/notices");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/notices`);
       setNotices(res.data.filter((n) => n.type === "notice"));
     } catch (err) {
       alert("Failed to load notices.");
@@ -25,7 +25,7 @@ export default function CommunityNotices() {
     if (!title || !content) return alert("All fields required");
 
     try {
-      await axios.post("http://localhost:3001/api/notices", {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/notices`, {
         title,
         content,
         type: "notice",
