@@ -1,25 +1,23 @@
- 🏘️ Community Hub Website
-A web application designed to streamline communication and services in a gated community.
+# Community Hub Website
 
-🔗 Live Website
-Visit Community Hub
+Live Demo:
+https://community-hub-website.vercel.app/
 
-🧪 Test Credentials
-You can create a new user, or use the following test accounts:
+Test Credentials:
 
-👤 Resident
-Block: A1
+Resident
+---------
+Block    : A1
+Password : 1234
 
-Password: 1234
+Admin
+-------
+Block    : A2
+Password : 1234
 
-🛠️ Admin
-Block: A2
-
-Password: 1234
-
-🚀 Features
-Resident and admin login
-
-Personalized dashboard
-
-Maintenance request system (and more...)
+Features:
+- Resident and Admin authentication
+- Personalized dashboards
+- Maintenance request system
+- Secure access control
+- Real-time user interface
