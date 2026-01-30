@@ -28,7 +28,7 @@ export default function Layout({ children }) {
           <Link to="/notices" className="block hover:text-blue-400">Community Notices</Link>
           <Link to="/events" className="block hover:text-blue-400">Events</Link>
           <Link to="/maintenance" className="block hover:text-blue-400">Maintenance</Link>
-          <Link to="/parking" className="block hover:text-blue-400">Parking</Link>
+          <Link to="/visitors" className="block hover:text-blue-400">Visitors</Link>
         </nav>
         <button
           onClick={handleLogout}

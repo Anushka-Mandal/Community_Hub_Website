@@ -6,6 +6,9 @@ export default function CommunityNotices() {
   const [notices, setNotices] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
+  const [editContent, setEditContent] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -36,6 +39,45 @@ export default function CommunityNotices() {
       fetchNotices();
     } catch (err) {
       alert(err.response?.data?.error || "Error posting");
+    }
+  };
+
+  const startEdit = (n) => {
+    setEditingId(n._id);
+    setEditTitle(n.title);
+    setEditContent(n.content);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditTitle("");
+    setEditContent("");
+  };
+
+  const saveEdit = async (id) => {
+    try {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/notices/${id}`, {
+        title: editTitle,
+        content: editContent,
+        type: "notice",
+        userId: user._id,
+      });
+      cancelEdit();
+      fetchNotices();
+    } catch (err) {
+      alert(err.response?.data?.error || "Error updating");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!confirm("Delete this notice?")) return;
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/notices/${id}`, {
+        data: { userId: user._id },
+      });
+      fetchNotices();
+    } catch (err) {
+      alert(err.response?.data?.error || "Error deleting");
     }
   };
 
@@ -74,9 +116,38 @@ export default function CommunityNotices() {
           key={n._id}
           className="bg-[#1a2238] p-4 rounded-xl shadow border border-blue-400/20 mb-4"
         >
-          <h4 className="text-xl font-semibold text-blue-300">{n.title}</h4>
-          <p className="text-gray-300 mt-1">{n.content}</p>
-          <p className="text-sm text-gray-500 mt-2">Posted by {n.postedBy?.name}</p>
+          {editingId === n._id ? (
+            <>
+              <input
+                value={editTitle}
+                onChange={(e) => setEditTitle(e.target.value)}
+                className="w-full mb-2 p-2 bg-gray-800 rounded"
+              />
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                className="w-full mb-2 p-2 bg-gray-800 rounded"
+                rows={3}
+              />
+              <div className="flex gap-2 mt-2">
+                <button onClick={() => saveEdit(n._id)} className="bg-green-600 px-3 py-1 rounded">Save</button>
+                <button onClick={cancelEdit} className="bg-gray-600 px-3 py-1 rounded">Cancel</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h4 className="text-xl font-semibold text-blue-300">{n.title}</h4>
+              <p className="text-gray-300 mt-1">{n.content}</p>
+              <p className="text-sm text-gray-500 mt-2">Posted by {n.postedBy?.name}</p>
+
+              {user.role === "admin" && (
+                <div className="mt-2 flex gap-2">
+                  <button onClick={() => startEdit(n)} className="bg-yellow-500 px-3 py-1 rounded">Edit</button>
+                  <button onClick={() => handleDelete(n._id)} className="bg-red-600 px-3 py-1 rounded">Delete</button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       ))}
 

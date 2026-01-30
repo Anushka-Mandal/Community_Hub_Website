@@ -7,6 +7,8 @@ import Layout from "./pages/Layout";
 import CommunityNotices from "./pages/Community";
 import Notice_Events from "./pages/Event.jsx";
 import Maintenance from "./pages/Maintenance.jsx";
+import Visitor from "./pages/Visitor.jsx";
+import Resident from "./pages/Resident.jsx";
 
 export default function App() {
   const [done, setDone] = useState(false);
@@ -27,6 +29,9 @@ export default function App() {
       <Route path="/notices" element={<Layout><CommunityNotices /></Layout>} />
       <Route path="/events" element={<Layout><Notice_Events /></Layout>} />
       <Route path="/maintenance" element={<Layout><Maintenance /></Layout>} />
+      <Route path="/visitors" element={<Layout><Visitor /></Layout>} />
+      <Route path="/visitor" element={<Layout><Visitor /></Layout>} />
+      <Route path="/resident" element={<Layout><Resident /></Layout>} />
 
 
       {/* Fallback Route */}

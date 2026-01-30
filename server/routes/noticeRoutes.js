@@ -30,4 +30,46 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update a notice/event (admin only)
+router.put("/:id", async (req, res) => {
+  const { title, content, type, userId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const updated = await Notice.findByIdAndUpdate(
+      req.params.id,
+      { title, content, type },
+      { new: true }
+    );
+
+    if (!updated) return res.status(404).json({ error: "Notice not found" });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Delete a notice/event (admin only)
+router.delete("/:id", async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+
+    const deleted = await Notice.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: "Notice not found" });
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 module.exports = router;
