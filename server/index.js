@@ -36,11 +36,25 @@ app.post("/signin", async (req, res) => {
   }
 });
 
+// Get user profile
+app.get("/users/:id", async (req, res) => {
+  try {
+    const user = await Usermodel.findById(req.params.id).select("-password");
+    if (!user) return res.status(404).json({ error: "User not found" });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 const noticeRoutes = require("./routes/noticeRoutes");
 app.use("/api/notices", noticeRoutes);
 
 const maintenanceRoutes = require("./routes/maintenanceRoutes");
 app.use("/api/maintenance", maintenanceRoutes);
+
+const visitorRoutes = require("./routes/visitorRoutes");
+app.use("/api/visitors", visitorRoutes);
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
